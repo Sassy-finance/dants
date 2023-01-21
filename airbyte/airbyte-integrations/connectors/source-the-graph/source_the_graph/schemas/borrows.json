@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "borrows": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "nonce": {
+                  "type": "string"
+                },
+                "logIndex": {
+                  "type": "integer"
+                },
+                "blockNumber": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "type": "string"
+                },
+                "account": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                "market": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                "asset": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                "amount": {
+                  "type": "string"
+                },
+                "amountUSD": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "hash",
+                "nonce",
+                "logIndex",
+                "blockNumber",
+                "timestamp",
+                "account",
+                "market",
+                "asset",
+                "amount",
+                "amountUSD"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "borrows"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+}

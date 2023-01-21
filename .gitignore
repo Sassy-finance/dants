@@ -1,0 +1,9 @@
+/airbyte/airbyte-integrations/connectors/*
+!/airbyte/airbyte-integrations/connectors/source-the-graph
+/airbyte/*
+!/airbyte/airbyte-integrations
+/airbyte/airbyte-integrations/bases
+/airbyte/airbyte-integrations/connector-templates
+/airbyte/airbyte-integrations/infrastructure
+/airbyte/airbyte-integrations/LICENSE
+/airbyte/airbyte-integrations/build*
