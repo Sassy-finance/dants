@@ -1,5 +1,6 @@
 /airbyte/airbyte-integrations/connectors/*
 !/airbyte/airbyte-integrations/connectors/source-the-graph
+!/airbyte/airbyte-integrations/connectors/destination-lighthouse
 /airbyte/*
 !/airbyte/airbyte-integrations
 /airbyte/airbyte-integrations/bases
