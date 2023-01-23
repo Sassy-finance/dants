@@ -7,7 +7,9 @@ from typing import Any, Iterable, Mapping
 
 from airbyte_cdk import AirbyteLogger
 from airbyte_cdk.destinations import Destination
-from airbyte_cdk.models import AirbyteConnectionStatus, AirbyteMessage, ConfiguredAirbyteCatalog, Status
+from airbyte_cdk.models import AirbyteConnectionStatus, AirbyteMessage, ConfiguredAirbyteCatalog, Status, Type
+from destination_lighthouse.writer import ApiWriter
+from nodejs import node, npm
 
 
 class DestinationLighthouse(Destination):
@@ -15,15 +17,10 @@ class DestinationLighthouse(Destination):
         self, config: Mapping[str, Any], configured_catalog: ConfiguredAirbyteCatalog, input_messages: Iterable[AirbyteMessage]
     ) -> Iterable[AirbyteMessage]:
 
+        # npm.run(['install', '@lighthouse-web3/sdk'])
+        # npm.run(['install', 'ethers'])
+
         """
-        TODO
-        Reads the input stream of messages, config, and catalog to write data to the destination.
-
-        This method returns an iterable (typically a generator of AirbyteMessages via yield) containing state messages received
-        in the input message stream. Outputting a state message means that every AirbyteRecordMessage which came before it has been
-        successfully persisted to the destination. This is used to ensure fault tolerance in the case that a sync fails before fully completing,
-        then the source is given the last state message output from this method as the starting point of the next sync.
-
         :param config: dict of JSON configuration matching the configuration declared in spec.json
         :param configured_catalog: The Configured Catalog describing the schema of the data being received and how it should be persisted in the
                                     destination
@@ -31,7 +28,22 @@ class DestinationLighthouse(Destination):
         :return: Iterable of AirbyteStateMessages wrapped in AirbyteMessage structs
         """
 
-        pass
+        writer = ApiWriter(
+            config['api_key'],
+            config['public_key'],
+            config['private_key']
+        )
+
+        for message in input_messages:
+            if message.type == Type.RECORD:
+                record = message.record
+                writer.add_to_buffer(record.data)
+            elif message.type == Type.STATE:
+                yield message
+            else:
+                continue
+
+        writer.upload_file()
 
     def check(self, logger: AirbyteLogger, config: Mapping[str, Any]) -> AirbyteConnectionStatus:
         """

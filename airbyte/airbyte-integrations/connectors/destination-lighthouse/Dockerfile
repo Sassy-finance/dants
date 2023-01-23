@@ -1,14 +1,17 @@
-FROM python:3.9.11-alpine3.15 as base
+FROM python:3.9.11 as base
 
 # build and load all requirements
 FROM base as builder
+
 WORKDIR /airbyte/integration_code
 
 # upgrade pip to the latest version
-RUN apk --no-cache upgrade \
-    && pip install --upgrade pip \
-    && apk --no-cache add tzdata build-base
+RUN pip install --upgrade pip
+# RUN apt-get upgrade 
+RUN apt-get install -y tzdata
+RUN apt-get update && apt-get install -y build-essential
 
+RUN pip install --upgrade pip
 
 COPY setup.py ./
 # install necessary packages to a temporary folder
@@ -25,11 +28,19 @@ COPY --from=builder /usr/share/zoneinfo/Etc/UTC /etc/localtime
 RUN echo "Etc/UTC" > /etc/timezone
 
 # bash is installed for more convenient debugging.
-RUN apk --no-cache add bash
+# RUN apk --no-cache add bash
+RUN apt-get install -y bash
 
 # copy payload code only
 COPY main.py ./
 COPY destination_lighthouse ./destination_lighthouse
+
+RUN apt-get update && \
+  apt-get install -y \
+    nodejs npm
+
+RUN node --version
+RUN cd ./destination_lighthouse && npm install ethers @lighthouse-web3/sdk
 
 ENV AIRBYTE_ENTRYPOINT "python /airbyte/integration_code/main.py"
 ENTRYPOINT ["python", "/airbyte/integration_code/main.py"]
