@@ -13,6 +13,7 @@ import createEmotionCache from 'src/createEmotionCache';
 import { SidebarProvider } from 'src/contexts/SidebarContext';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import UserProvider from '../src/contexts/UserContext'
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -34,6 +35,7 @@ function TokyoApp(props: TokyoAppProps) {
   Router.events.on('routeChangeComplete', nProgress.done);
 
   return (
+    <UserProvider>
     <CacheProvider value={emotionCache}>
       <Head>
         <title>Tokyo Free Black NextJS Typescript Admin Dashboard</title>
@@ -51,6 +53,7 @@ function TokyoApp(props: TokyoAppProps) {
         </ThemeProvider>
       </SidebarProvider>
     </CacheProvider>
+    </UserProvider>
   );
 }
 
