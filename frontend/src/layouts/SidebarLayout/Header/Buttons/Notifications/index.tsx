@@ -54,19 +54,6 @@ function HeaderNotifications() {
 
   return (
     <>
-      <Tooltip arrow title="Notifications">
-        <IconButton color="primary" ref={ref} onClick={handleOpen}>
-          <NotificationsBadge
-            badgeContent={1}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
-            }}
-          >
-            <NotificationsActiveTwoToneIcon />
-          </NotificationsBadge>
-        </IconButton>
-      </Tooltip>
       <Popover
         anchorEl={ref.current}
         onClose={handleClose}
