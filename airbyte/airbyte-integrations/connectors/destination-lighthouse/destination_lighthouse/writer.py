@@ -3,23 +3,38 @@ import csv
 from typing import Mapping
 from airbyte_cdk import AirbyteLogger
 from nodejs import node
+from datetime import datetime
 
 logger = AirbyteLogger()
 
 
 class ApiWriter():
-    def __init__(self, api_key: str, public_key: str, private_key: str):
+    def __init__(
+        self,
+            api_key: str,
+            public_key: str,
+            private_key: str,
+            entity: str,
+            pipeline_id: str
+    ):
         self.api_key = api_key
         self.public_key = public_key
         self.private_key = private_key
+        self.entity = entity
+        self.pipeline_id = pipeline_id
         self.records = []
 
     def add_to_buffer(self, record: Mapping):
-        self.records.append(record)
+        self.records = [*self.records, *record['data'][self.entity]]
 
     def upload_file(self):
+
+        date = datetime.fromtimestamp(
+            int(self.records[0]['timestamp'])
+        ).strftime('%d%m%y')
+
         file = self.create_temp_csv(
-            file_name='upload',
+            file_name='pipeline' + '-' + self.pipeline_id + '-' + self.public_key + '-' + date,
             json_data=self.records
         )
 

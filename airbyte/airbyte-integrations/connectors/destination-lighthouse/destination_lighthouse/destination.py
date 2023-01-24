@@ -10,6 +10,9 @@ from airbyte_cdk.destinations import Destination
 from airbyte_cdk.models import AirbyteConnectionStatus, AirbyteMessage, ConfiguredAirbyteCatalog, Status, Type
 from destination_lighthouse.writer import ApiWriter
 from nodejs import node, npm
+from airbyte_cdk import AirbyteLogger
+
+logger = AirbyteLogger()
 
 
 class DestinationLighthouse(Destination):
@@ -19,7 +22,6 @@ class DestinationLighthouse(Destination):
 
         # npm.run(['install', '@lighthouse-web3/sdk'])
         # npm.run(['install', 'ethers'])
-
         """
         :param config: dict of JSON configuration matching the configuration declared in spec.json
         :param configured_catalog: The Configured Catalog describing the schema of the data being received and how it should be persisted in the
@@ -31,7 +33,9 @@ class DestinationLighthouse(Destination):
         writer = ApiWriter(
             config['api_key'],
             config['public_key'],
-            config['private_key']
+            config['private_key'],
+            configured_catalog.streams[0].stream.name,
+            config['pipeline_name']
         )
 
         for message in input_messages:
