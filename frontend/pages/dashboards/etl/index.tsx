@@ -4,6 +4,13 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container, Card, CardContent, Box, CardHeader, Divider, TextField, Button } from '@mui/material';
 import Footer from '@/components/Footer';
+import { createDestination } from '@/api/airbyte';
+import {
+  LIGHTHOUSE_AIRBYTE_ID,
+  AIRBYTE_WORKSPACE_ID,
+  THEGRAPH_AIRBYTE_ID
+} from '@/config';
+
 
 function DashboardTasks() {
 
@@ -17,8 +24,19 @@ function DashboardTasks() {
     })
   }
 
-  const submit = () => {
-    console.log({state})
+  const submit = async () => {
+    console.log({ state })
+    const destination = await createDestination(
+      AIRBYTE_WORKSPACE_ID,
+      'lightouse-test2',
+      LIGHTHOUSE_AIRBYTE_ID,
+      state.apiKey,
+      state.publicKey,
+      state.privateKey,
+      state.pipelineName
+    )
+
+    console.log({destination})
   }
 
   const [state, setState] = useState({
