@@ -1,12 +1,9 @@
 import { Typography, Button, Grid } from '@mui/material';
+import Link from 'next/link'
 
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
 function PageHeader() {
-  const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
-  };
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -18,6 +15,7 @@ function PageHeader() {
         </Typography>
       </Grid>
       <Grid item>
+      <Link href="etl">
         <Button
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
@@ -25,6 +23,7 @@ function PageHeader() {
         >
           Create ETL
         </Button>
+        </Link>
       </Grid>
     </Grid>
   );

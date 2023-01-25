@@ -1,8 +1,6 @@
 import React, { useState, ReactNode } from 'react'
 import { User } from '.'
-
 import { ethers } from "ethers";
-
 import lighthouse from '@lighthouse-web3/sdk';
 
 interface UserProviderProps {
