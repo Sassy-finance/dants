@@ -1,12 +1,37 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import SidebarLayout from '@/layouts/SidebarLayout';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container, Card, CardContent, Box, CardHeader, Divider, TextField, Button } from '@mui/material';
 import Footer from '@/components/Footer';
 
-
-
 function DashboardTasks() {
+
+  const handleChange = (event) => {
+    const name = event.target.id;
+    const value = event.target.value;
+
+    setState({
+      ...state,
+      [name]: value
+    })
+  }
+
+  const submit = () => {
+    console.log({state})
+  }
+
+  const [state, setState] = useState({
+    subgraphName: "",
+    startDate: "",
+    entity: "",
+    publicKey: "",
+    privateKey: "",
+    apiKey: "",
+    pipelineName: ""
+  })
+
+
   return (
     <>
       <Head>
@@ -23,7 +48,7 @@ function DashboardTasks() {
           spacing={3}
         >
           <Grid item xs={12}>
-          <Card>
+            <Card>
               <CardHeader title="Source Detail" />
               <Divider />
               <CardContent>
@@ -41,17 +66,24 @@ function DashboardTasks() {
                       id="subgraphName"
                       label="Subgraph Name"
                       defaultValue="messari/aave-v2-polygon"
+                      value={state.subgraphName}
+                      onChange={handleChange}
                     />
                     <TextField
                       id="startDate"
                       label="Start Date"
                       defaultValue="2022-01-01"
+                      value={state.startDate}
+                      onChange={handleChange}
                     />
                     <TextField
                       required
                       id="entity"
                       label="Entity Name"
                       defaultValue="borrows"
+                      value={state.entity}
+                      onChange={handleChange}
+
                     />
                   </div>
                 </Box>
@@ -59,7 +91,7 @@ function DashboardTasks() {
             </Card>
           </Grid>
           <Grid item xs={12}>
-          <Card>
+            <Card>
               <CardHeader title="Destination Detail" />
               <Divider />
               <CardContent>
@@ -77,22 +109,30 @@ function DashboardTasks() {
                       id="publicKey"
                       label="publicKey"
                       defaultValue="0x..."
+                      value={state.publicKey}
+                      onChange={handleChange}
                     />
                     <TextField
                       id="privateKey"
                       label="Private Key"
                       type="password"
+                      value={state.privateKey}
+                      onChange={handleChange}
                     />
                     <TextField
                       id="apiKey"
                       label="Api Key"
+                      value={state.apiKey}
                       type="password"
+                      onChange={handleChange}
                     />
                     <TextField
                       required
                       id="pipelineName"
                       label="borrows-aave-polygon"
+                      value={state.pipelineName}
                       defaultValue="borrows-aave-polygon"
+                      onChange={handleChange}
                     />
                   </div>
                 </Box>
@@ -100,13 +140,14 @@ function DashboardTasks() {
             </Card>
           </Grid>
           <Grid item>
-        <Button
-          sx={{ mt: { xs: 2, md: 0 } }}
-          variant="contained"
-        >
-          Save
-        </Button>
-      </Grid>
+            <Button
+              sx={{ mt: { xs: 2, md: 0 } }}
+              variant="contained"
+              onClick={submit}
+            >
+              Save
+            </Button>
+          </Grid>
         </Grid>
       </Container>
       <Footer />
