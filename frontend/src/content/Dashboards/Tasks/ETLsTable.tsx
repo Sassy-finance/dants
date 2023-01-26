@@ -20,13 +20,16 @@ import {
   MenuItem,
   Typography,
   useTheme,
-  CardHeader
+  CardHeader,
+  Dialog,
+  DialogTitle,
+  Button
 } from '@mui/material';
 
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+import { runConnection } from '@/api/airbyte';
 
 interface ETLsTableProps {
   className?: string;
@@ -44,7 +47,7 @@ const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
       color: 'error'
     },
     completed: {
-      text: 'Completed',
+      text: 'Active',
       color: 'success'
     },
     pending: {
@@ -171,159 +174,174 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders }) => {
     selectedCryptoOrders.length === cryptoOrders.length;
   const theme = useTheme();
 
+  const [openRunETL, setOpenRunETL] = useState(false);
+
+  const runETL = (event) => {
+    const response = runConnection(event.currentTarget.id)
+    if (response) {
+      setOpenRunETL(true)
+    }
+  }
+
+  const handleCloseRunETL = (value) => {
+    setOpenRunETL(false);
+  };
+
   return (
-    <Card>
-      {selectedBulkActions && (
-        <Box flex={1} p={2}>
+    <>
+      <Card>
+        {selectedBulkActions && (
+          <Box flex={1} p={2}>
+          </Box>
+        )}
+        {!selectedBulkActions && (
+          <CardHeader
+            action={
+              <Box width={150}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Status</InputLabel>
+                  <Select
+                    value={filters.status || 'all'}
+                    onChange={handleStatusChange}
+                    label="Status"
+                    autoWidth
+                  >
+                    {statusOptions.map((statusOption) => (
+                      <MenuItem key={statusOption.id} value={statusOption.id}>
+                        {statusOption.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            }
+            title="Your ETLs"
+          />
+        )}
+        <Divider />
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    color="primary"
+                    checked={selectedAllCryptoOrders}
+                    indeterminate={selectedSomeCryptoOrders}
+                    onChange={handleSelectAllCryptoOrders}
+                  />
+                </TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Source Name</TableCell>
+                <TableCell align="right">Destination Name</TableCell>
+                <TableCell align="right">Status</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {paginatedCryptoOrders.map((cryptoOrder) => {
+                const isCryptoOrderSelected = selectedCryptoOrders.includes(
+                  cryptoOrder.id
+                );
+                return (
+                  <TableRow
+                    hover
+                    key={cryptoOrder.id}
+                    selected={isCryptoOrderSelected}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        color="primary"
+                        checked={isCryptoOrderSelected}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                          handleSelectOneCryptoOrder(event, cryptoOrder.id)
+                        }
+                        value={isCryptoOrderSelected}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                        gutterBottom
+                        noWrap
+                      >
+                        {cryptoOrder.orderID}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                        gutterBottom
+                        noWrap
+                      >
+                        {cryptoOrder.orderID}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="text.primary"
+                        gutterBottom
+                        noWrap
+                      >
+                        {cryptoOrder.orderID}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      {getStatusLabel(cryptoOrder.status)}
+                    </TableCell>
+                    <TableCell align="right">
+                      <Tooltip title="Launch ETL" arrow >
+                        <IconButton
+                          sx={{
+                            '&:hover': {
+                              background: theme.colors.primary.lighter
+                            },
+                            color: theme.palette.primary.main
+                          }}
+                          color="inherit"
+                          size="small"
+                          id={"dc5bf604-5c6a-4d27-8dc0-d70e38265abb"}
+                          onClick={runETL}
+                        >
+                          <PlayCircleFilledWhiteIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Box p={2}>
+          <TablePagination
+            component="div"
+            count={filteredCryptoOrders.length}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+            page={page}
+            rowsPerPage={limit}
+            rowsPerPageOptions={[5, 10, 25, 30]}
+          />
         </Box>
-      )}
-      {!selectedBulkActions && (
-        <CardHeader
-          action={
-            <Box width={150}>
-              <FormControl fullWidth variant="outlined">
-                <InputLabel>Status</InputLabel>
-                <Select
-                  value={filters.status || 'all'}
-                  onChange={handleStatusChange}
-                  label="Status"
-                  autoWidth
-                >
-                  {statusOptions.map((statusOption) => (
-                    <MenuItem key={statusOption.id} value={statusOption.id}>
-                      {statusOption.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-          }
-          title="Recent Orders"
-        />
-      )}
-      <Divider />
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={selectedAllCryptoOrders}
-                  indeterminate={selectedSomeCryptoOrders}
-                  onChange={handleSelectAllCryptoOrders}
-                />
-              </TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell># Files</TableCell>
-              <TableCell align="right">Last updated</TableCell>
-              <TableCell align="right">Status</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {paginatedCryptoOrders.map((cryptoOrder) => {
-              const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                cryptoOrder.id
-              );
-              return (
-                <TableRow
-                  hover
-                  key={cryptoOrder.id}
-                  selected={isCryptoOrderSelected}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={isCryptoOrderSelected}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneCryptoOrder(event, cryptoOrder.id)
-                      }
-                      value={isCryptoOrderSelected}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.orderID}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.orderID}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.orderID}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    {getStatusLabel(cryptoOrder.status)}
-                  </TableCell>
-                  <TableCell align="right">
-                    <Tooltip title="Edit Order" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': {
-                            background: theme.colors.primary.lighter
-                          },
-                          color: theme.palette.primary.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <EditTwoToneIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete Order" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <DeleteTwoToneIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Box p={2}>
-        <TablePagination
-          component="div"
-          count={filteredCryptoOrders.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 10, 25, 30]}
-        />
-      </Box>
-    </Card>
+      </Card>
+      <Dialog onClose={handleCloseRunETL} open={openRunETL}>
+        <DialogTitle>ETL launched!</DialogTitle>
+        <Button
+          sx={{ mt: { xs: 2, md: 0 } }}
+          variant="contained"
+          onClick={handleCloseRunETL}
+        >
+          Close
+        </Button>
+      </Dialog>
+    </>
   );
 };
 

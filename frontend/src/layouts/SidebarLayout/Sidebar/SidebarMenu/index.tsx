@@ -206,7 +206,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Your data lake
+              Your Pipelines
             </ListSubheader>
           }
         >
@@ -224,6 +224,21 @@ function SidebarMenu() {
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
                     ETLs
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/dashboards/tasks" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/dashboards/taskss' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    Pipelines
                   </Button>
                 </NextLink>
               </ListItem>

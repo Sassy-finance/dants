@@ -36,6 +36,23 @@ export const createDestination = async (
 };
 
 
+export const runConnection = async (
+    connectionId: string
+) => {
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/api/v1/airbyte/runConnection`,
+            {
+                connectionId
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
 export const createSource = async (
     workspaceId: string,
     name: string,

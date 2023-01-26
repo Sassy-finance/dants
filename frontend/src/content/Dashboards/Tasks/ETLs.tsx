@@ -1,7 +1,6 @@
 import { Card } from '@mui/material';
 import { CryptoOrder } from '@/models/crypto_order';
 import ETLsTable from './ETLsTable';
-import { subDays } from 'date-fns';
 
 function ETLs() {
   const cryptoOrders: CryptoOrder[] = [
