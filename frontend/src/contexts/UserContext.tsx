@@ -45,7 +45,8 @@ const UserProvider = (props: UserProviderProps) => {
                 isLogged,
                 loginMetamask,
                 userWallet,
-                getUserUploads
+                getUserUploads,
+                wholeWallet
             }}
         >
             {props.children}

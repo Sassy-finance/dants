@@ -1,6 +1,6 @@
-export const LIGHTHOUSE_AIRBYTE_ID = '11b30a02-fffb-479b-85c1-3612da2d48a6'
-export const THEGRAPH_AIRBYTE_ID = 'da1d4a53-6baa-4a72-82fd-359b28eee7d2'
-export const AIRBYTE_WORKSPACE_ID = '2e07eb65-da17-4607-8926-c189b7a60a3c'
+export const LIGHTHOUSE_AIRBYTE_ID = 'fe78496e-e313-47a9-9279-c8b4be5d401e'
+export const THEGRAPH_AIRBYTE_ID = '206ed366-4858-45d3-8db7-24e427aa55a6'
+export const AIRBYTE_WORKSPACE_ID = '754f6038-0eca-4c0c-bdd3-4ddb98571e04'
 
 
 

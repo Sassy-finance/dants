@@ -1,18 +1,38 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import SidebarLayout from '@/layouts/SidebarLayout';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
-import { Grid, Container, Card, CardContent, Box, CardHeader, Divider, TextField, Button } from '@mui/material';
+import { User } from "../../../src/contexts"
+
+import {
+  Grid,
+  Container,
+  Card,
+  CardContent,
+  Box,
+  CardHeader,
+  Divider,
+  TextField,
+  Button,
+  Dialog,
+  DialogTitle
+} from '@mui/material';
 import Footer from '@/components/Footer';
-import { createDestination } from '@/api/airbyte';
+import { createConnection, createDestination, createSource } from '@/api/airbyte';
 import {
   LIGHTHOUSE_AIRBYTE_ID,
   AIRBYTE_WORKSPACE_ID,
   THEGRAPH_AIRBYTE_ID
 } from '@/config';
+import { useRouter } from 'next/router'
 
 
 function DashboardTasks() {
+
+  const router = useRouter()
+
+  const { isLogged, wholeWallet } = useContext(User);
+
 
   const handleChange = (event) => {
     const name = event.target.id;
@@ -25,10 +45,15 @@ function DashboardTasks() {
   }
 
   const submit = async () => {
-    console.log({ state })
+
+    if (!isLogged) {
+      setOpenLogin(true)
+      return
+    }
+
     const destination = await createDestination(
       AIRBYTE_WORKSPACE_ID,
-      'lightouse-test2',
+      state.destinationName,
       LIGHTHOUSE_AIRBYTE_ID,
       state.apiKey,
       state.publicKey,
@@ -36,10 +61,27 @@ function DashboardTasks() {
       state.pipelineName
     )
 
-    console.log({destination})
+    const source = await createSource(
+      AIRBYTE_WORKSPACE_ID,
+      state.sourceName,
+      THEGRAPH_AIRBYTE_ID,
+      state.entity,
+      state.subgraphName,
+      state.startDate
+    )
+
+    await createConnection(
+      state.sourceName + '-' + state.destinationName + '-' + wholeWallet,
+      source.sourceId,
+      destination.destinationId
+    )
+
+    setOpen(true)
   }
 
   const [state, setState] = useState({
+    sourceName: "",
+    destinationName: "",
     subgraphName: "",
     startDate: "",
     entity: "",
@@ -48,6 +90,23 @@ function DashboardTasks() {
     apiKey: "",
     pipelineName: ""
   })
+
+  const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+
+
+  const handleClose = () => {
+
+  }
+
+  const closeModalLogin = () => {
+    setOpenLogin(false);
+  }
+
+  const closeModal = () => {
+    setOpen(false);
+    router.push("/dashboards/tasks")
+  }
 
 
   return (
@@ -79,6 +138,14 @@ function DashboardTasks() {
                   autoComplete="off"
                 >
                   <div>
+                    <TextField
+                      required
+                      id="sourceName"
+                      label="Source Name"
+                      defaultValue="Compound"
+                      value={state.sourceName}
+                      onChange={handleChange}
+                    />
                     <TextField
                       required
                       id="subgraphName"
@@ -122,6 +189,14 @@ function DashboardTasks() {
                   autoComplete="off"
                 >
                   <div>
+                    <TextField
+                      required
+                      id="destinationName"
+                      label="Destination Name"
+                      defaultValue="LigthHouse"
+                      value={state.destinationName}
+                      onChange={handleChange}
+                    />
                     <TextField
                       required
                       id="publicKey"
@@ -169,6 +244,28 @@ function DashboardTasks() {
         </Grid>
       </Container>
       <Footer />
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Connection created!</DialogTitle>
+        <Button
+          sx={{ mt: { xs: 2, md: 0 } }}
+          variant="contained"
+          onClick={closeModal}
+        >
+          Close
+        </Button>
+      </Dialog>
+
+      <Dialog onClose={handleClose} open={openLogin}>
+        <DialogTitle>Connect you wallet!</DialogTitle>
+        <p>Please connect your wallet</p>
+        <Button
+          sx={{ mt: { xs: 2, md: 0 } }}
+          variant="contained"
+          onClick={closeModalLogin}
+        >
+          Close
+        </Button>
+      </Dialog>
     </>
   );
 }
