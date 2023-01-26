@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3002'
+const BASE_URL = 'http://localhost:4001'
 
 export const createDestination = async (
     workspaceId: string,
@@ -21,7 +21,7 @@ export const createDestination = async (
         }
 
         const response = await axios.post(
-            `${BASE_URL}/api/v1/destinations/create`,
+            `${BASE_URL}/api/v1/airbyte/createDestination`,
             {
                 workspaceId,
                 name,
@@ -39,27 +39,32 @@ export const createDestination = async (
 export const createSource = async (
     workspaceId: string,
     name: string,
-    destinationDefinitionId: string,
-    apiKey: string,
-    publicKey: string,
-    privateKey: string,
-    pipelineName: string,
+    sourceDefinitionId: string,
+    entity: string,
+    subgraph: string,
+    start_date: string,
 ) => {
     try {
 
         const connectionConfiguration = {
-            api_key: apiKey,
-            public_key: publicKey,
-            private_key: privateKey,
-            pipeline_name: pipelineName
+            entity,
+            subgraph,
+            start_date
         }
 
+        console.log({
+            workspaceId,
+            name,
+            sourceDefinitionId,
+            connectionConfiguration
+        })
+
         const response = await axios.post(
-            `${BASE_URL}/api/v1/source/create`,
+            `${BASE_URL}/api/v1/airbyte/createSource`,
             {
                 workspaceId,
                 name,
-                destinationDefinitionId,
+                sourceDefinitionId,
                 connectionConfiguration
             }
         );
@@ -71,30 +76,18 @@ export const createSource = async (
 
 
 export const createConnection = async (
-    workspaceId: string,
     name: string,
-    destinationDefinitionId: string,
-    apiKey: string,
-    publicKey: string,
-    privateKey: string,
-    pipelineName: string,
+    sourceId: string,
+    destinationId : string,
 ) => {
     try {
 
-        const connectionConfiguration = {
-            api_key: apiKey,
-            public_key: publicKey,
-            private_key: privateKey,
-            pipeline_name: pipelineName
-        }
-
         const response = await axios.post(
-            `${BASE_URL}/api/v1/connections/create`,
+            `${BASE_URL}/api/v1/airbyte/createConnection`,
             {
-                workspaceId,
                 name,
-                destinationDefinitionId,
-                connectionConfiguration
+                sourceId,
+                destinationId
             }
         );
         return response.data;
