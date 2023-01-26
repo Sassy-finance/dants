@@ -59,6 +59,26 @@ const createSource = async (req: Request, res: Response) => {
     }
 };
 
+const runConnection = async (req: Request, res: Response) => {
+    try {
+        axios.defaults.headers.common['Authorization'] = 'Basic YWlyYnl0ZTpkYW50c3RvdGhlbW9vbg==';
+
+        const {
+            connectionId,
+        } = req.body
+
+        const response = await axios.post(
+            `${BASE_URL}/api/v1/connections/sync`,
+            {
+                connectionId
+            }
+        );
+        return res.json(response.data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 const createConnection = async (req: Request, res: Response) => {
     try {
@@ -218,6 +238,7 @@ const createConnection = async (req: Request, res: Response) => {
 router.post('/createDestination', createDestination)
 router.post('/createSource', createSource)
 router.post('/createConnection', createConnection)
+router.post('/runConnection', runConnection)
 
 
 export default router;
