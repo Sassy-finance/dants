@@ -35,6 +35,9 @@
         "dotenv": "^16.0.3",
         "express": "^4.17.1",
         "morgan": "^1.10.0",
-        "reflect-metadata": "^0.1.13"
+        "mysql2": "^3.0.1",
+        "reflect-metadata": "^0.1.13",
+        "sequelize": "^6.28.0",
+        "sequelize-typescript": "^2.1.5"
     }
 }
