@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import pkg from '../package.json'
 import compression from 'compression'
 import config from './config'
+import db from './models'
 
 import AirbyteRouter from './routes/AirbyteRouter'
 
@@ -40,6 +41,8 @@ app.use((_, res) => {
     res.status(404).send()
 })
 
-app.listen(config.app.port, () => {
-    console.log(`Sever listening`)
-})
+db.sequelize.authenticate().then(
+    app.listen(config.app.port, () => {
+      console.log(`Sever listening`)
+    })
+  ).catch(err => console.log(`Error connecting with the db ${err}`))

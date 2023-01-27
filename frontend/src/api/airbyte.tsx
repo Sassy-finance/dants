@@ -96,6 +96,10 @@ export const createConnection = async (
     name: string,
     sourceId: string,
     destinationId : string,
+    user: string,
+    sourceName: string,
+    destinationName: string,
+    description: string
 ) => {
     try {
 
@@ -104,7 +108,27 @@ export const createConnection = async (
             {
                 name,
                 sourceId,
-                destinationId
+                destinationId,
+                user,
+                sourceName,
+                destinationName,
+                description
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getAllETLs = async (
+    user: string,
+) => {
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/api/v1/airbyte/userETLs`,
+            {
+                user: user || ' '
             }
         );
         return response.data;

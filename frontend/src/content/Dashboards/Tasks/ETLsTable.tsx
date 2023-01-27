@@ -34,6 +34,7 @@ import { runConnection } from '@/api/airbyte';
 interface ETLsTableProps {
   className?: string;
   cryptoOrders: CryptoOrder[];
+  etls: any[]
 }
 
 interface Filters {
@@ -41,24 +42,7 @@ interface Filters {
 }
 
 const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
-  const map = {
-    failed: {
-      text: 'Failed',
-      color: 'error'
-    },
-    completed: {
-      text: 'Active',
-      color: 'success'
-    },
-    pending: {
-      text: 'Pending',
-      color: 'warning'
-    }
-  };
-
-  const { text, color }: any = map[cryptoOrderStatus];
-
-  return <Label color={color}>{text}</Label>;
+  return <Label color={'success'}>{'text'}</Label>;
 };
 
 const applyFilters = (
@@ -84,7 +68,7 @@ const applyPagination = (
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders }) => {
+const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -239,24 +223,15 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {paginatedCryptoOrders.map((cryptoOrder) => {
-                const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                  cryptoOrder.id
-                );
+              {etls.map((etl) => {
                 return (
                   <TableRow
                     hover
-                    key={cryptoOrder.id}
-                    selected={isCryptoOrderSelected}
+                    key={etl.etl_name}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
-                        checked={isCryptoOrderSelected}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                          handleSelectOneCryptoOrder(event, cryptoOrder.id)
-                        }
-                        value={isCryptoOrderSelected}
                       />
                     </TableCell>
                     <TableCell>
@@ -267,7 +242,7 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders }) => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.orderID}
+                        {etl.source_name}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -278,7 +253,7 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders }) => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.orderID}
+                        {etl.source_name}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
@@ -289,11 +264,11 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders }) => {
                         gutterBottom
                         noWrap
                       >
-                        {cryptoOrder.orderID}
+                        {etl.destination_name}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      {getStatusLabel(cryptoOrder.status)}
+                      {getStatusLabel('Active')}
                     </TableCell>
                     <TableCell align="right">
                       <Tooltip title="Launch ETL" arrow >
@@ -306,7 +281,7 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders }) => {
                           }}
                           color="inherit"
                           size="small"
-                          id={"dc5bf604-5c6a-4d27-8dc0-d70e38265abb"}
+                          id={etl.etl_id}
                           onClick={runETL}
                         >
                           <PlayCircleFilledWhiteIcon fontSize="small" />

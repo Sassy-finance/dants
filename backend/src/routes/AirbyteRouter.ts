@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express'
 import axios from 'axios';
 import config from '../config';
+import { IETL } from '../models/ETL';
+import { createETL, getAllUserETLs } from '../controllers/ETL';
 
 const router = Router()
 const BASE_URL = config.AIRBYTE_BASE_URL
@@ -80,6 +82,22 @@ const runConnection = async (req: Request, res: Response) => {
 };
 
 
+const getUserETLs = async (req: Request, res: Response) => {
+    try {
+        const {
+            user,
+        } = req.body
+
+        const etls = await getAllUserETLs(user)
+
+        return res.json(etls)
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
 const createConnection = async (req: Request, res: Response) => {
     try {
         axios.defaults.headers.common['Authorization'] = 'Basic YWlyYnl0ZTpkYW50c3RvdGhlbW9vbg==';
@@ -88,6 +106,10 @@ const createConnection = async (req: Request, res: Response) => {
             name,
             sourceId,
             destinationId,
+            user,
+            sourceName,
+            destinationName,
+            description
         } = req.body
 
         const response = await axios.post(
@@ -229,16 +251,36 @@ const createConnection = async (req: Request, res: Response) => {
                 "nonBreakingChangesPreference": "ignore"
             }
         );
+
+
+        const etl: IETL = {
+            etl_id: response.data.connectionId,
+            etl_description: description,
+            destination_id: destinationId,
+            destination_name: destinationName,
+            etl_name: name,
+            source_id: sourceId,
+            source_name: sourceName,
+            user: user
+        }
+
+        await createETL(etl)
+
         return res.json(response.data);
+
     } catch (error) {
         console.log(error);
     }
+
+
 };
 
 router.post('/createDestination', createDestination)
 router.post('/createSource', createSource)
 router.post('/createConnection', createConnection)
 router.post('/runConnection', runConnection)
+router.post('/userETLs', getUserETLs)
+
 
 
 export default router;

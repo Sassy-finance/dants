@@ -71,9 +71,13 @@ function DashboardTasks() {
     )
 
     await createConnection(
-      state.sourceName + '-' + state.destinationName + '-' + wholeWallet,
+      state.pipelineName,
       source.sourceId,
-      destination.destinationId
+      destination.destinationId,
+      wholeWallet,
+      state.sourceName,
+      state.destinationName,
+      ""
     )
 
     setOpen(true)
