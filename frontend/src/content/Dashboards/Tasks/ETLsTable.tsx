@@ -42,6 +42,7 @@ interface Filters {
 }
 
 const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
+  if (cryptoOrderStatus == 'failed') return <Label color={'success'}>{'text'}</Label>;
   return <Label color={'success'}>{'text'}</Label>;
 };
 
@@ -58,14 +59,6 @@ const applyFilters = (
 
     return matches;
   });
-};
-
-const applyPagination = (
-  cryptoOrders: CryptoOrder[],
-  page: number,
-  limit: number
-): CryptoOrder[] => {
-  return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
 const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
@@ -121,22 +114,6 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
     );
   };
 
-  const handleSelectOneCryptoOrder = (
-    _event: ChangeEvent<HTMLInputElement>,
-    cryptoOrderId: string
-  ): void => {
-    if (!selectedCryptoOrders.includes(cryptoOrderId)) {
-      setSelectedCryptoOrders((prevSelected) => [
-        ...prevSelected,
-        cryptoOrderId
-      ]);
-    } else {
-      setSelectedCryptoOrders((prevSelected) =>
-        prevSelected.filter((id) => id !== cryptoOrderId)
-      );
-    }
-  };
-
   const handlePageChange = (_event: any, newPage: number): void => {
     setPage(newPage);
   };
@@ -146,11 +123,7 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
   };
 
   const filteredCryptoOrders = applyFilters(cryptoOrders, filters);
-  const paginatedCryptoOrders = applyPagination(
-    filteredCryptoOrders,
-    page,
-    limit
-  );
+
   const selectedSomeCryptoOrders =
     selectedCryptoOrders.length > 0 &&
     selectedCryptoOrders.length < cryptoOrders.length;
@@ -167,7 +140,7 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
     }
   }
 
-  const handleCloseRunETL = (value) => {
+  const handleCloseRunETL = () => {
     setOpenRunETL(false);
   };
 

@@ -83,6 +83,7 @@ function DashboardTasks() {
   }
 
   const handleFileChange = (e) => {
+    console.log(file)
     if (e.target.files) {
       setFile(e.target.files[0]);
     }

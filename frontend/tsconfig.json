@@ -29,6 +29,6 @@
     "noFallthroughCasesInSwitch": true,
     "incremental": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "src", "pages"],
   "include": ["src", "next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

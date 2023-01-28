@@ -33,12 +33,6 @@ const MainContent = styled(Box)(
 `
 );
 
-const TypographyPrimary = styled(Typography)(
-  ({ theme }) => `
-      color: ${theme.colors.alpha.white[100]};
-`
-);
-
 const TypographySecondary = styled(Typography)(
   ({ theme }) => `
       color: ${theme.colors.alpha.white[70]};
