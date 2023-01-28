@@ -1,11 +1,11 @@
 import { Card } from '@mui/material';
 import { CryptoOrder } from '@/models/crypto_order';
-import ETLsTable from './ETLsTable';
+import PipelinesTable from './PipelinesTable';
 import { useEffect, useState, useContext } from 'react';
-import { getAllETLs } from '@/api/airbyte';
-import { User } from "../../../../src/contexts"
+import { User } from "../../../contexts"
+import { getAllPipelines } from "../../../api/pipeline"
 
-function ETLs() {
+function Pipelines({community}) {
   const cryptoOrders: CryptoOrder[] = [
     {
       id: '1',
@@ -30,19 +30,23 @@ function ETLs() {
     }
   }, [wholeWallet])
 
-  const [etls, setETLs] = useState([])
+  const [pipelines, setPipelines] = useState([])
 
   const loadData = async () => {
-    const etlResponse = await getAllETLs(wholeWallet)
-    console.log(etlResponse)
-    setETLs(etlResponse)
+    const pipelinesResponse = await getAllPipelines(wholeWallet)
+    console.log(pipelinesResponse)
+    setPipelines(pipelinesResponse || [])
   }
 
   return (
     <Card>
-      <ETLsTable cryptoOrders={cryptoOrders} etls={etls} />
+      <PipelinesTable 
+      cryptoOrders={cryptoOrders} 
+      pipelines={pipelines}
+      community={community} 
+      />
     </Card>
   );
 }
 
-export default ETLs;
+export default Pipelines;

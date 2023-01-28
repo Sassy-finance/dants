@@ -228,10 +228,10 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/dashboards/tasks" passHref>
+                <NextLink href="/dashboards/pipelines" passHref>
                   <Button
                     className={
-                      currentRoute === '/dashboards/taskss' ? 'active' : ''
+                      currentRoute === '/dashboards/pipelines' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
@@ -256,10 +256,10 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/management/transactions" passHref>
+                <NextLink href="/dashboards/community" passHref>
                   <Button
                     className={
-                      currentRoute === '/management/transactions'
+                      currentRoute === '/dashboards/community'
                         ? 'active'
                         : ''
                     }
@@ -268,7 +268,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<TableChartTwoToneIcon />}
                   >
-                    Transactions List
+                    Pipelines
                   </Button>
                 </NextLink>
               </ListItem>
