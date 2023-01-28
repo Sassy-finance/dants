@@ -7,6 +7,7 @@ import config from './config'
 import db from './models'
 
 import AirbyteRouter from './routes/AirbyteRouter'
+import PipelineRouter from './routes/PipelineRouter'
 
 const app = express()
 
@@ -35,7 +36,7 @@ app.get('/', (_, res) => {
 })
 
 app.use('/api/v1/airbyte', AirbyteRouter)
-
+app.use('/api/v1/pipeline', PipelineRouter)
 
 app.use((_, res) => {
     res.status(404).send()
