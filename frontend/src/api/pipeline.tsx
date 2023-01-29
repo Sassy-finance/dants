@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'http://localhost:4001'
+import { API_BASE_URL } from '../config';
 
 export const createPipeline = async (
     name: string,
@@ -15,7 +14,7 @@ export const createPipeline = async (
     try {
 
         const response = await axios.post(
-            `${BASE_URL}/api/v1/pipeline/create`,
+            `${API_BASE_URL}/api/v1/pipeline/create`,
             {
                 name,
                 description,
@@ -38,7 +37,7 @@ export const getAllPipelines = async (
 ) => {
     try {
         const response = await axios.post(
-            `${BASE_URL}/api/v1/pipeline/userPipelines`,
+            `${API_BASE_URL}/api/v1/pipeline/userPipelines`,
             {
                 user: user || ' '
             }

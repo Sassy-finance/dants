@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'http://localhost:4001'
+import { API_BASE_URL } from '../config';
 
 export const createDestination = async (
     workspaceId: string,
@@ -21,7 +20,7 @@ export const createDestination = async (
         }
 
         const response = await axios.post(
-            `${BASE_URL}/api/v1/airbyte/createDestination`,
+            `${API_BASE_URL}/api/v1/airbyte/createDestination`,
             {
                 workspaceId,
                 name,
@@ -41,7 +40,7 @@ export const runConnection = async (
 ) => {
     try {
         const response = await axios.post(
-            `${BASE_URL}/api/v1/airbyte/runConnection`,
+            `${API_BASE_URL}/api/v1/airbyte/runConnection`,
             {
                 connectionId
             }
@@ -77,7 +76,7 @@ export const createSource = async (
         })
 
         const response = await axios.post(
-            `${BASE_URL}/api/v1/airbyte/createSource`,
+            `${API_BASE_URL}/api/v1/airbyte/createSource`,
             {
                 workspaceId,
                 name,
@@ -104,7 +103,7 @@ export const createConnection = async (
     try {
 
         const response = await axios.post(
-            `${BASE_URL}/api/v1/airbyte/createConnection`,
+            `${API_BASE_URL}/api/v1/airbyte/createConnection`,
             {
                 name,
                 sourceId,
@@ -126,7 +125,7 @@ export const getAllETLs = async (
 ) => {
     try {
         const response = await axios.post(
-            `${BASE_URL}/api/v1/airbyte/userETLs`,
+            `${API_BASE_URL}/api/v1/airbyte/userETLs`,
             {
                 user: user || ' '
             }
