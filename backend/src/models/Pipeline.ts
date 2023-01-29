@@ -40,7 +40,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     timestamps: false
   })
 
-  Pipeline.sync({force: true});
+  //Pipeline.sync({force: true});
 
   return Pipeline
 
