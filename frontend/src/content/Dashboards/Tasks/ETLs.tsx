@@ -34,8 +34,7 @@ function ETLs() {
 
   const loadData = async () => {
     const etlResponse = await getAllETLs(wholeWallet)
-    console.log(etlResponse)
-    setETLs(etlResponse)
+    setETLs(etlResponse || [])
   }
 
   return (
