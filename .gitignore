@@ -14,3 +14,5 @@ backend/node_modules
 backend/.env
 backend/mysql_data
 backend/dist
+frontend/out
+frontend/.env.local

@@ -249,7 +249,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Community Pipelines
+              Community
             </ListSubheader>
           }
         >
@@ -269,6 +269,23 @@ function SidebarMenu() {
                     startIcon={<TableChartTwoToneIcon />}
                   >
                     Pipelines
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/dashboards/marketplace" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/dashboards/marketplace'
+                        ? 'active'
+                        : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<TableChartTwoToneIcon />}
+                  >
+                    Marketplace
                   </Button>
                 </NextLink>
               </ListItem>
