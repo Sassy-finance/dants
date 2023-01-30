@@ -244,7 +244,7 @@ const createConnection = async (req: Request, res: Response) => {
                 },
                 "scheduleType": "manual",
                 "status": "active",
-                "sourceCatalogId": "8db09a3f-6399-41ca-b39c-76a6b2410a64",
+                "sourceCatalogId": "4a049890-9b19-4da3-ad86-54c3483047fe",
                 "geography": "auto",
                 "breakingChange": false,
                 "notifySchemaChanges": true,
