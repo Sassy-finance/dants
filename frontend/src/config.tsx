@@ -1,7 +1,6 @@
-export const LIGHTHOUSE_AIRBYTE_ID = 'fe78496e-e313-47a9-9279-c8b4be5d401e'
-export const THEGRAPH_AIRBYTE_ID = '206ed366-4858-45d3-8db7-24e427aa55a6'
-export const AIRBYTE_WORKSPACE_ID = '754f6038-0eca-4c0c-bdd3-4ddb98571e04'
-console.log(process.env.NEXT_PUBLIC_API_BASE_URL)
+export const LIGHTHOUSE_AIRBYTE_ID = 'bf8c7e4a-ba78-4b78-8017-1aabe9f33e71'
+export const THEGRAPH_AIRBYTE_ID = '1cc31189-3e1a-4dcb-9e83-820795c44e05'
+export const AIRBYTE_WORKSPACE_ID = '164987c7-dea5-4e19-8e21-1db9fe145085'
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4001'
 
 
