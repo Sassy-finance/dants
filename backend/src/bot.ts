@@ -1,6 +1,7 @@
 import { getPipelinesCreating, updateStatus } from "./controllers/Pipeline"
 import db from './models'
 import { buildImage, pushImage } from "./commands/docker"
+import { getJobStatus } from "./commands/bacalhau"
 
 const createDockerFiles = async () => {
     const pipelines = await getPipelinesCreating()
@@ -23,9 +24,9 @@ const checkNewPipelines = () => {
 }
 
 
-function check() {
-    checkNewPipelines()
-    setTimeout(check, 5000);
-}
+// function check() {
+//     checkNewPipelines()
+//     setTimeout(check, 5000);
+// }
 
-check();
+checkNewPipelines();

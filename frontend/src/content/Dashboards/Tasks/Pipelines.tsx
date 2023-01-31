@@ -34,7 +34,7 @@ function Pipelines({community}) {
 
   const loadData = async () => {
     const pipelinesResponse = await getAllPipelines(wholeWallet)
-    console.log(pipelinesResponse)
+    console.log({pipelinesResponse})
     setPipelines(pipelinesResponse || [])
   }
 
