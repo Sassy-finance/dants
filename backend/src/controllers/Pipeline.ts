@@ -30,3 +30,33 @@ export const getAllUserpipelines = async (user: string) => {
       throw error
     }
 }
+
+export const getPipelinesCreating = async () => {
+  try {
+    const pipelines = await db.Pipeline.findAll({
+      where: {
+        status: "CREATING"
+      }
+    });
+
+    return pipelines
+
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+
+export const updateStatus = async (id: string, status: string) => {
+  try {
+    return db.Pipeline.update(
+      { status },
+      { where: { id } }
+  )
+
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
