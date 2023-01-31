@@ -12,7 +12,8 @@
         "build": "npm run build-ts",
         "build-ts": "tsc",
         "eslint": "eslint 'src/**'",
-        "eslint-fix": "eslint 'src/**' --fix"
+        "eslint-fix": "eslint 'src/**' --fix",
+        "bot": "ts-node src/bot.ts"
     },
     "keywords": [],
     "author": "",

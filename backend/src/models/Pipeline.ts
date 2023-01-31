@@ -10,6 +10,8 @@ export interface IPipeline {
   sourceThree: string,
   sourceFour: string,
   user: string,
+  code: string
+  status: string
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -23,6 +25,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     sourceThree: string;
     sourceFour: string;
     user: string;
+    code: string;
+    status: string;
   }
 
   Pipeline.init({
@@ -33,14 +37,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
     sourceTwo: DataTypes.STRING,
     sourceThree: DataTypes.STRING,
     sourceFour: DataTypes.STRING,
-    user: DataTypes.STRING
+    user: DataTypes.STRING,
+    code: DataTypes.TEXT,
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Pipeline',
     timestamps: false
   })
-
-  //Pipeline.sync({force: true});
 
   return Pipeline
 
