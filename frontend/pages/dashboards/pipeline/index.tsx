@@ -20,12 +20,16 @@ import {
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/router'
 import { createPipeline } from '@/api/pipeline';
+import { uploadCode } from '../../../src/api/pipeline';
 
 
 function DashboardTasks() {
 
   const router = useRouter()
   const { isLogged, wholeWallet } = useContext(User);
+  const [file, setFile] = useState<File>();
+  const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
 
 
   const handleChange = (event) => {
@@ -74,9 +78,6 @@ function DashboardTasks() {
     pipelineName: ""
   })
 
-  const [file, setFile] = useState<File>();
-  const [open, setOpen] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
 
 
   const handleClose = () => {

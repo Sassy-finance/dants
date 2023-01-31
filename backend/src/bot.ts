@@ -5,9 +5,13 @@ import { buildImage, pushImage } from "./commands/docker"
 const createDockerFiles = async () => {
     const pipelines = await getPipelinesCreating()
 
+    console.log({pipelines})
+
     for (const pipeline of pipelines) {
         await buildImage(pipeline.id.toString())
+        console.log('Image created successfully')
         await pushImage(pipeline.id.toString())
+        console.log('Image pushed successfully')
         await updateStatus(pipeline.id.toString(), "COMPLETED")
     }
 }

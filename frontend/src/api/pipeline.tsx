@@ -9,7 +9,7 @@ export const createPipeline = async (
     sourceTwo: string,
     sourceThree: string,
     sourceFour: string,
-    user: string,
+    user: string
 ) => {
     try {
 
@@ -47,3 +47,27 @@ export const getAllPipelines = async (
         console.log(error);
     }
 };
+
+export const uploadCode = async (formData: any, pipeline: string) => {
+
+    try {
+        axios({
+            method: 'post',
+            url: `${API_BASE_URL}/api/v1/pipeline/code/${pipeline}`,
+            data: formData,
+          })
+            .then((response) => {
+              if (response.data.success) {
+                alert(response.data.menu)
+              } else {
+                alert('something went wrong')
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+    } catch (error) {
+
+    }
+}
