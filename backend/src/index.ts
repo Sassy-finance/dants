@@ -8,6 +8,8 @@ import db from './models'
 
 import AirbyteRouter from './routes/AirbyteRouter'
 import PipelineRouter from './routes/PipelineRouter'
+import JobRouter from './routes/JobRouter'
+
 
 const app = express()
 
@@ -37,6 +39,8 @@ app.get('/', (_, res) => {
 
 app.use('/api/v1/airbyte', AirbyteRouter)
 app.use('/api/v1/pipeline', PipelineRouter)
+app.use('/api/v1/job', JobRouter)
+
 
 app.use((_, res) => {
     res.status(404).send()
