@@ -6,7 +6,7 @@ import { getJobStatus } from "./commands/bacalhau"
 const createDockerFiles = async () => {
     const pipelines = await getPipelinesCreating()
 
-    console.log({pipelines})
+    console.log({ pipelines })
 
     for (const pipeline of pipelines) {
         await buildImage(pipeline.id.toString())
@@ -18,15 +18,16 @@ const createDockerFiles = async () => {
 }
 
 const checkNewPipelines = () => {
-    db.sequelize.authenticate().then(
-        createDockerFiles()
-    ).catch(err => console.log(`Error connecting with the db ${err}`))
+    createDockerFiles()
 }
 
+function check() {
+    checkNewPipelines()
+    setTimeout(check, 5000);
+}
 
-// function check() {
-//     checkNewPipelines()
-//     setTimeout(check, 5000);
-// }
+db.sequelize.authenticate().then(
+    check()
+).catch(err => console.log(`Error connecting with the db ${err}`))
 
-checkNewPipelines();
+// checkNewPipelines();
