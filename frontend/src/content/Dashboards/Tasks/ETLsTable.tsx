@@ -29,6 +29,7 @@ import {
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { runConnection } from '@/api/airbyte';
 
 interface ETLsTableProps {
@@ -260,6 +261,22 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
                           <PlayCircleFilledWhiteIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
+                      <Tooltip  title="See results" arrow>
+                          <IconButton
+                            sx={{
+                              '&:hover': {
+                                background: theme.colors.primary.lighter
+                              },
+                              color: theme.palette.primary.main
+                            }}
+                            color="inherit"
+                            size="small"
+                            id={etl.etl_id}
+                            onClick={runETL}
+                          >
+                            <RemoveRedEyeIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
                     </TableCell>
                   </TableRow>
                 );

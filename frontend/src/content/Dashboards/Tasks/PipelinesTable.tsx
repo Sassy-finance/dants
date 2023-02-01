@@ -29,8 +29,10 @@ import {
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { runConnection } from '@/api/airbyte';
+import { createJob } from '../../../api/job';
 
 interface PipelinesTableProps {
   className?: string;
@@ -123,21 +125,6 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
     );
   };
 
-  const handleSelectOneCryptoOrder = (
-    _event: ChangeEvent<HTMLInputElement>,
-    cryptoOrderId: string
-  ): void => {
-    if (!selectedCryptoOrders.includes(cryptoOrderId)) {
-      setSelectedCryptoOrders((prevSelected) => [
-        ...prevSelected,
-        cryptoOrderId
-      ]);
-    } else {
-      setSelectedCryptoOrders((prevSelected) =>
-        prevSelected.filter((id) => id !== cryptoOrderId)
-      );
-    }
-  };
 
   const handlePageChange = (_event: any, newPage: number): void => {
     setPage(newPage);
@@ -148,11 +135,7 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
   };
 
   const filteredCryptoOrders = applyFilters(cryptoOrders, filters);
-  const paginatedCryptoOrders = applyPagination(
-    filteredCryptoOrders,
-    page,
-    limit
-  );
+
   const selectedSomeCryptoOrders =
     selectedCryptoOrders.length > 0 &&
     selectedCryptoOrders.length < cryptoOrders.length;
@@ -160,17 +143,21 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
     selectedCryptoOrders.length === cryptoOrders.length;
   const theme = useTheme();
 
-  const [openRunETL, setOpenRunETL] = useState(false);
+  const [openRunPipeline, setOpenRunPipeline] = useState(false);
 
-  const runETL = (event) => {
-    const response = runConnection(event.currentTarget.id)
-    if (response) {
-      setOpenRunETL(true)
+  const runPipeline = async (event) => {
+    console.log(event.currentTarget.id)
+    const respose = await createJob(
+      event.currentTarget.id,
+      "bafybeifalmam37chj7nqr4k4z7bhh3yvm4zuwftzelbrszv3d5wk7q6paq"
+    )
+    if (respose) {
+      setOpenRunPipeline(true)
     }
   }
 
   const handleCloseRunETL = (value) => {
-    setOpenRunETL(false);
+    setOpenRunPipeline(false);
   };
 
   return (
@@ -285,28 +272,48 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
                             color="inherit"
                             size="small"
                             id={pipeline.id}
-                            onClick={runETL}
+                            onClick={runPipeline}
                           >
                             <ShoppingCartIcon fontSize="small" />
                           </IconButton>
                         </Tooltip>
                         :
-                        <Tooltip title="Launch Pipeline" arrow >
-                          <IconButton
-                            sx={{
-                              '&:hover': {
-                                background: theme.colors.primary.lighter
-                              },
-                              color: theme.palette.primary.main
-                            }}
-                            color="inherit"
-                            size="small"
-                            id={pipeline.id}
-                            onClick={runETL}
-                          >
-                            <PlayCircleFilledWhiteIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
+                        <>
+                          <Tooltip title="Launch Pipeline" arrow >
+                            <IconButton
+                              sx={{
+                                '&:hover': {
+                                  background: theme.colors.primary.lighter
+                                },
+                                color: theme.palette.primary.main
+                              }}
+                              color="inherit"
+                              size="small"
+                              id={pipeline.id}
+                              onClick={runPipeline}
+                            >
+                              <PlayCircleFilledWhiteIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="See results" arrow>
+                            <IconButton
+                              sx={{
+                                '&:hover': {
+                                  background: theme.colors.primary.lighter
+                                },
+                                color: theme.palette.primary.main
+                              }}
+                              color="inherit"
+                              size="small"
+                              id={pipeline.id}
+                              onClick={runPipeline}
+                            >
+                              <RemoveRedEyeIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        </>
+
+
                       }
 
 
@@ -329,8 +336,8 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
           />
         </Box>
       </Card>
-      <Dialog onClose={handleCloseRunETL} open={openRunETL}>
-        <DialogTitle>ETL launched!</DialogTitle>
+      <Dialog onClose={handleCloseRunETL} open={openRunPipeline}>
+        <DialogTitle>Pipeline launched!</DialogTitle>
         <Button
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
