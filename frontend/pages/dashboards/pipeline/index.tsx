@@ -20,7 +20,6 @@ import {
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/router'
 import { createPipeline } from '@/api/pipeline';
-import { uploadCode } from '../../../src/api/pipeline';
 
 
 function DashboardTasks() {

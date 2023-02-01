@@ -16,7 +16,8 @@ const create = async (req: Request, res: Response) => {
             cid,
             pipeline,
             result: "",
-            status: "CREATING"
+            status: "CREATING",
+            bacalhauJob: ""
         }
         const jobSaved = await createJob(job)
 
