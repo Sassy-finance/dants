@@ -9,7 +9,9 @@ export interface IETL {
   destination_id: string,
   source_name: string,
   destination_name: string,
-  user: string
+  user: string,
+  status: string,
+  result: string
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -22,7 +24,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     destination_id: string;
     source_name: string;
     destination_name: string;
-    user: string
+    user: string;
+    status: string;
+    result: string;
   }
 
   ETL.init({
@@ -38,6 +42,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     source_name: DataTypes.STRING,
     destination_name: DataTypes.STRING,
     user: DataTypes.STRING,
+    status: DataTypes.STRING,
+    result: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'ETL',

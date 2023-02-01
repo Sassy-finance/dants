@@ -261,7 +261,9 @@ const createConnection = async (req: Request, res: Response) => {
             etl_name: name,
             source_id: sourceId,
             source_name: sourceName,
-            user: user
+            user: user,
+            status: "CREATED",
+            result: ""
         }
 
         await createETL(etl)
