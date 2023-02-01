@@ -44,7 +44,7 @@ const checkJobStatus = async () => {
 }
 
 const checkNewPipelines = () => {
-    // createDockerFiles()
+    createDockerFiles()
     createBacalhauJob()
     checkJobStatus()
 }
