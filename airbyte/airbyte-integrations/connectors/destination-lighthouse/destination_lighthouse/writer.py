@@ -34,7 +34,7 @@ class ApiWriter():
         ).strftime('%d%m%y')
 
         file = self.create_temp_csv(
-            file_name='pipeline' + '-' + self.pipeline_id + '-' + self.public_key + '-' + date,
+            file_name='pipeline' + '-' + self.pipeline_id + '-' + date,
             json_data=self.records
         )
 
