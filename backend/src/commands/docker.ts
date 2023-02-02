@@ -2,12 +2,12 @@ import { execSh } from "."
 
 export const buildImage = async (tag: string) => {
     return execSh(
-        `docker build -t ialberquilla/pipeline:id:${tag} .`
+        `docker build -t ialberquilla/pipeline:${tag} .`
     )
 }
 
 export const pushImage = async (tag: string) => {
     return execSh(
-        `docker push ialberquilla/pipeline:id:${tag}`
+        `docker push ialberquilla/pipeline:${tag}`
     )
 }

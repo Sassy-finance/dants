@@ -12,9 +12,9 @@ const createDockerFiles = async () => {
     console.log({ pipelines })
 
     for (const pipeline of pipelines) {
-        await buildImage(pipeline.id.toString())
+        await buildImage(pipeline.name.toString())
         console.log('Image created successfully')
-        await pushImage(pipeline.id.toString())
+        await pushImage(pipeline.name.toString())
         console.log('Image pushed successfully')
         await updateStatus(pipeline.id.toString(), "COMPLETED")
     }

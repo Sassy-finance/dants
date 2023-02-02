@@ -259,7 +259,7 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
                         gutterBottom
                         noWrap
                       >
-                        {pipeline.price}
+                        {pipeline.price} DANT
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
