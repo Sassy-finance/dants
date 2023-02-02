@@ -15,14 +15,17 @@ export const getJobStatus = async (job: string) => {
         `bacalhau list ${job} --output=json`
     ) as any
 
+    let returnValue = ''
+    let publishedResult = ''
+
     try {
         const jsonResult = JSON.parse(result.stdout)
         const nodes = jsonResult[0].Status.JobState
         const values = Object.values(nodes);
         const shards = Object.values(values[0])
         const shardZero = shards.filter(shard => shard.Shards['0'].PublishedResults.CID)
-        const returnValue = shardZero[0].Shards['0'].State
-        const publishedResult = shardZero[0].Shards['0'].PublishedResults.CID
+        returnValue = shardZero[0].Shards['0'].State
+        publishedResult = shardZero[0].Shards['0'].PublishedResults.CID
 
         return ({
             returnValue,
