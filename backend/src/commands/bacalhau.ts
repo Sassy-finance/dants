@@ -5,6 +5,8 @@ export const runJob = async (cid: string, pipeline: string) => {
         `bacalhau docker run --id-only --wait --input-urls=https://${cid}.ipfs.dweb.link/file.tar.gz ialberquilla/pipeline:${pipeline}`
     ) as any
 
+    console.log(`bacalhau docker run --id-only --wait --input-urls=https://${cid}.ipfs.dweb.link/file.tar.gz ialberquilla/pipeline:${pipeline}`)
+
     return result.stdout.toString().trim()
 }
 
@@ -21,7 +23,7 @@ export const getJobStatus = async (job: string) => {
     const returnValue = shardZero[0].Shards['0'].State
     const publishedResult = shardZero[0].Shards['0'].PublishedResults.CID
 
-    return({
+    return ({
         returnValue,
         publishedResult
     })
