@@ -11,3 +11,5 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
+DANTS 0x081662b1F321e392B7a555Ff117C77048D1F5a71
+Pipeline Shop 0x68d361b525d8b7Ce6cc4bC79D5F97F4d626CC743

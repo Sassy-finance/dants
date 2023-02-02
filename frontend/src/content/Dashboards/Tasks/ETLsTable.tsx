@@ -45,7 +45,7 @@ interface Filters {
 
 const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
   if (cryptoOrderStatus == 'failed') return <Label color={'success'}>{'text'}</Label>;
-  return <Label color={'success'}>{'text'}</Label>;
+  return <Label color={'success'}>{'Ready'}</Label>;
 };
 
 const applyFilters = (
