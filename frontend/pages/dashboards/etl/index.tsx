@@ -77,7 +77,7 @@ function DashboardTasks() {
       wholeWallet,
       state.sourceName,
       state.destinationName,
-      ""
+      state.description
     )
 
     setOpen(true)
@@ -85,6 +85,7 @@ function DashboardTasks() {
 
   const [state, setState] = useState({
     sourceName: "",
+    description: "",
     destinationName: "",
     subgraphName: "",
     startDate: "",
@@ -130,6 +131,41 @@ function DashboardTasks() {
         >
           <Grid item xs={12}>
             <Card>
+              <CardHeader title="ETL" />
+              <Divider />
+              <CardContent>
+                <Box
+                  component="form"
+                  sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <div>
+                    <TextField
+                      required
+                      id="pipelineName"
+                      label="ETL Name"
+                      defaultValue="Aave-borrows-polygon"
+                      value={state.pipelineName}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      required
+                      id="description"
+                      label="Description"
+                      defaultValue="Retrieves all the borrows from Aave protocol"
+                      value={state.description}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Card>
               <CardHeader title="Source Detail" />
               <Divider />
               <CardContent>
@@ -159,6 +195,7 @@ function DashboardTasks() {
                       onChange={handleChange}
                     />
                     <TextField
+                      required
                       id="startDate"
                       label="Start Date"
                       defaultValue="2022-01-01"
@@ -172,7 +209,6 @@ function DashboardTasks() {
                       defaultValue="borrows"
                       value={state.entity}
                       onChange={handleChange}
-
                     />
                   </div>
                 </Box>
@@ -197,7 +233,7 @@ function DashboardTasks() {
                       required
                       id="destinationName"
                       label="Destination Name"
-                      defaultValue="LigthHouse"
+                      defaultValue="LighthHouse"
                       value={state.destinationName}
                       onChange={handleChange}
                     />
@@ -210,6 +246,7 @@ function DashboardTasks() {
                       onChange={handleChange}
                     />
                     <TextField
+                      required
                       id="privateKey"
                       label="Private Key"
                       type="password"
@@ -217,18 +254,11 @@ function DashboardTasks() {
                       onChange={handleChange}
                     />
                     <TextField
+                      required
                       id="apiKey"
                       label="Api Key"
                       value={state.apiKey}
                       type="password"
-                      onChange={handleChange}
-                    />
-                    <TextField
-                      required
-                      id="pipelineName"
-                      label="borrows-aave-polygon"
-                      value={state.pipelineName}
-                      defaultValue="borrows-aave-polygon"
                       onChange={handleChange}
                     />
                   </div>

@@ -50,7 +50,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     timestamps: false
   })
 
-  //ETL.sync({force: true});
+  // ETL.sync({force: true});
 
   return ETL
 
