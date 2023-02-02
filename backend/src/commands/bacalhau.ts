@@ -2,7 +2,7 @@ import { execSh } from "."
 
 export const runJob = async (cid: string, pipeline: string) => {
     const result: any = await execSh(
-        `bacalhau docker run --id-only --wait --input-urls=https://${cid}.ipfs.dweb.link/file.tar.gz ialberquilla/pipeline:${pipeline}`
+        `bacalhau docker run --id-only --wait --input-urls=https://${cid}.ipfs.dweb.link/file.tar.gz ialberquilla/pipeline:id:${pipeline}`
     ) as any
 
     return result.stdout.toString().trim()
