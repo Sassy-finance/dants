@@ -22,7 +22,7 @@ function Pipelines({community}) {
     }
   ];
 
-  const { wholeWallet } = useContext(User);
+  const { wholeWallet, getUserUploads } = useContext(User);
 
   useEffect(() => {
     if (wholeWallet) {
@@ -31,11 +31,15 @@ function Pipelines({community}) {
   }, [wholeWallet])
 
   const [pipelines, setPipelines] = useState([])
+  const [userUploads, setUserUploads] = useState([])
 
   const loadData = async () => {
     const pipelinesResponse = await getAllPipelines(wholeWallet)
-    console.log({pipelinesResponse})
+    const uploads = await getUserUploads() as any
     setPipelines(pipelinesResponse || [])
+    if (uploads) {
+      setUserUploads(uploads.data.uploads || [])
+    }
   }
 
   return (
@@ -44,6 +48,7 @@ function Pipelines({community}) {
       cryptoOrders={cryptoOrders} 
       pipelines={pipelines}
       community={community} 
+      userUploads={userUploads}
       />
     </Card>
   );

@@ -31,14 +31,14 @@ import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { runConnection } from '@/api/airbyte';
 import { createJob } from '../../../api/job';
 
 interface PipelinesTableProps {
   className?: string;
   cryptoOrders: CryptoOrder[];
   pipelines: any[],
-  community: boolean
+  community: boolean,
+  userUploads: any[];
 }
 
 interface Filters {
@@ -72,7 +72,7 @@ const applyPagination = (
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, community }) => {
+const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, community, userUploads }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -154,6 +154,12 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
     if (respose) {
       setOpenRunPipeline(true)
     }
+  }
+
+  const seeResults = (event) => {
+    const cid = event.currentTarget.id
+    window.open(`https://files.lighthouse.storage/viewFile/${cid}`, '_blank', 'noreferrer');
+    console.log(cid)
   }
 
   const handleCloseRunETL = (value) => {
@@ -305,8 +311,12 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
                               }}
                               color="inherit"
                               size="small"
-                              id={pipeline.id}
-                              onClick={runPipeline}
+                              id={userUploads.filter((u) => u.fileName == pipeline.name + '.csv').length 
+                              ?
+                              userUploads.filter((u) => u.fileName == pipeline.name + '.csv')[0].cid
+                              :
+                              ""}
+                              onClick={seeResults}
                             >
                               <RemoveRedEyeIcon fontSize="small" />
                             </IconButton>
