@@ -22,7 +22,7 @@ function ETLs() {
     }
   ];
 
-  const { wholeWallet } = useContext(User);
+  const { wholeWallet, getUserUploads } = useContext(User);
 
   useEffect(() => {
     if (wholeWallet) {
@@ -31,15 +31,21 @@ function ETLs() {
   }, [wholeWallet])
 
   const [etls, setETLs] = useState([])
+  const [userUploads, setUserUploads] = useState([])
+
 
   const loadData = async () => {
     const etlResponse = await getAllETLs(wholeWallet)
+    const uploads = await getUserUploads() as any
     setETLs(etlResponse || [])
+    if (uploads) {
+      setUserUploads(uploads.data.uploads || [])
+    }
   }
 
   return (
     <Card>
-      <ETLsTable cryptoOrders={cryptoOrders} etls={etls} />
+      <ETLsTable cryptoOrders={cryptoOrders} etls={etls} userUploads={userUploads} />
     </Card>
   );
 }

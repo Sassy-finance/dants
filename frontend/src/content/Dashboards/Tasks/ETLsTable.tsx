@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState } from 'react';
+import { FC, ChangeEvent, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Tooltip,
@@ -35,7 +35,8 @@ import { runConnection } from '@/api/airbyte';
 interface ETLsTableProps {
   className?: string;
   cryptoOrders: CryptoOrder[];
-  etls: any[]
+  etls: any[];
+  userUploads: any[];
 }
 
 interface Filters {
@@ -62,7 +63,8 @@ const applyFilters = (
   });
 };
 
-const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
+const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls, userUploads }) => {
+
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -141,9 +143,17 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
     }
   }
 
+  const seeResults = (event) => {
+    const cid = event.currentTarget.id
+    window.open(`https://files.lighthouse.storage/viewFile/${cid}`, '_blank', 'noreferrer');
+    console.log(cid)
+  }
+
   const handleCloseRunETL = () => {
     setOpenRunETL(false);
   };
+
+
 
   return (
     <>
@@ -216,7 +226,7 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
                         gutterBottom
                         noWrap
                       >
-                        {etl.source_name}
+                        {etl.etl_name}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -261,22 +271,26 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls }) => {
                           <PlayCircleFilledWhiteIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip  title="See results" arrow>
-                          <IconButton
-                            sx={{
-                              '&:hover': {
-                                background: theme.colors.primary.lighter
-                              },
-                              color: theme.palette.primary.main
-                            }}
-                            color="inherit"
-                            size="small"
-                            id={etl.etl_id}
-                            onClick={runETL}
-                          >
-                            <RemoveRedEyeIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
+                      <Tooltip title="See results" arrow>
+                        <IconButton
+                          sx={{
+                            '&:hover': {
+                              background: theme.colors.primary.lighter
+                            },
+                            color: theme.palette.primary.main
+                          }}
+                          color="inherit"
+                          size="small"
+                          id={userUploads.filter((u) => u.fileName == etl.etl_name + '.csv').length 
+                          ?
+                          userUploads.filter((u) => u.fileName == etl.etl_name + '.csv')[0].cid
+                          :
+                          "" }
+                          onClick={seeResults}
+                        >
+                          <RemoveRedEyeIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                 );

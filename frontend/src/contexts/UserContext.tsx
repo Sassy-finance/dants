@@ -36,7 +36,7 @@ const UserProvider = (props: UserProviderProps) => {
 
     const getUserUploads = async () => {
         const uploads = await lighthouse.getUploads(wholeWallet);
-        console.log({uploads})
+        return uploads;
     }
 
     return (

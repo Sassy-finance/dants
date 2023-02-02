@@ -59,7 +59,6 @@ const getUserPipelines = async (req: Request, res: Response) => {
 const uploadCode = async (req: Request, res: Response) => {
 
     try {
-        console.log('Uploading code');
         const pipeline = req.params.pipeline;
         const fileContent = req.body;
 
@@ -81,7 +80,5 @@ const uploadCode = async (req: Request, res: Response) => {
 router.post('/userPipelines', getUserPipelines)
 router.post('/create', create)
 router.post('/code/:pipeline', uploadCode)
-
-
 
 export default router;
