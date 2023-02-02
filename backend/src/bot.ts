@@ -57,5 +57,3 @@ function check() {
 db.sequelize.authenticate().then(
     check()
 ).catch(err => console.log(`Error connecting with the db ${err}`))
-
-// checkNewPipelines();

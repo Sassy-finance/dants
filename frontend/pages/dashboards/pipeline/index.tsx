@@ -148,7 +148,7 @@ function DashboardTasks() {
                       required
                       id="pipelinePrice"
                       label="Pipeline Price"
-                      defaultValue="0.1FIL"
+                      defaultValue="10 DANT"
                       value={state.pipelinePrice}
                       onChange={handleChange}
                     />
@@ -197,7 +197,7 @@ function DashboardTasks() {
                     />
                     <TextField
                       required
-                      id="sourceOne"
+                      id="sourceThree"
                       label="Source"
                       defaultValue="Aave-borrows-Ethereum"
                       value={state.sourceThree}
@@ -205,7 +205,7 @@ function DashboardTasks() {
                     />
                     <TextField
                       required
-                      id="sourceOne"
+                      id="sourceFour"
                       label="Source"
                       defaultValue="Aave-borrows-avalanche"
                       value={state.sourceFour}
