@@ -6,5 +6,6 @@ export const User = React.createContext({
   loginMetamask: () => { },
   userWallet: '',
   getUserUploads: () => { },
-  wholeWallet:''
+  wholeWallet:'',
+  buyPipeline: (pipelineId: string, price: string) => { },
 })

@@ -39,6 +39,7 @@ interface PipelinesTableProps {
   pipelines: any[],
   community: boolean,
   userUploads: any[];
+  buyPipeline: (pipelineId: string, price: string) => {}
 }
 
 interface Filters {
@@ -72,7 +73,7 @@ const applyPagination = (
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, community, userUploads }) => {
+const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, community, userUploads, buyPipeline }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -267,22 +268,40 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
                     </TableCell>
                     <TableCell align="right">
                       {community ?
-                        <Tooltip title="Buy Pipeline" arrow >
-                          <IconButton
-                            sx={{
-                              '&:hover': {
-                                background: theme.colors.primary.lighter
-                              },
-                              color: theme.palette.primary.main
-                            }}
-                            color="inherit"
-                            size="small"
-                            id={pipeline.id}
-                            onClick={runPipeline}
-                          >
-                            <ShoppingCartIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
+                        <>
+                          <Tooltip title="Buy Pipeline" arrow >
+                            <IconButton
+                              sx={{
+                                '&:hover': {
+                                  background: theme.colors.primary.lighter
+                                },
+                                color: theme.palette.primary.main
+                              }}
+                              color="inherit"
+                              size="small"
+                              id={pipeline.id}
+                              onClick={() => buyPipeline(pipeline.id.toString(), pipeline.price.toString())}
+                            >
+                              <ShoppingCartIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="See results" arrow>
+                            <IconButton
+                              sx={{
+                                '&:hover': {
+                                  background: theme.colors.primary.lighter
+                                },
+                                color: theme.palette.primary.main
+                              }}
+                              color="inherit"
+                              size="small"
+                              id={pipeline.code}
+                              onClick={seeResults}
+                            >
+                              <RemoveRedEyeIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        </>
                         :
                         <>
                           <Tooltip title="Launch Pipeline" arrow >

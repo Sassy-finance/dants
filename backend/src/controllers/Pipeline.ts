@@ -18,9 +18,6 @@ export const createPipeline = async (pipeline: IPipeline) => {
 export const getAllUserpipelines = async (user: string) => {
     try {
       const pipelines = await db.Pipeline.findAll({
-        where: {
-          user: user
-        }
       });
   
       return pipelines

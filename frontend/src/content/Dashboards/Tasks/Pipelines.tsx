@@ -22,7 +22,7 @@ function Pipelines({community}) {
     }
   ];
 
-  const { wholeWallet, getUserUploads } = useContext(User);
+  const { wholeWallet, getUserUploads, buyPipeline } = useContext(User);
 
   useEffect(() => {
     if (wholeWallet) {
@@ -50,6 +50,7 @@ function Pipelines({community}) {
       pipelines={pipelines}
       community={community} 
       userUploads={userUploads}
+      buyPipeline={buyPipeline}
       />
     </Card>
   );
