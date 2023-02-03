@@ -311,11 +311,7 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
                               }}
                               color="inherit"
                               size="small"
-                              id={userUploads.filter((u) => u.fileName == pipeline.name + '.csv').length 
-                              ?
-                              userUploads.filter((u) => u.fileName == pipeline.name + '.csv')[0].cid
-                              :
-                              ""}
+                              id={pipeline.code}
                               onClick={seeResults}
                             >
                               <RemoveRedEyeIcon fontSize="small" />

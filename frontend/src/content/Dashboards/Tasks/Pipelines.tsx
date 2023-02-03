@@ -35,6 +35,7 @@ function Pipelines({community}) {
 
   const loadData = async () => {
     const pipelinesResponse = await getAllPipelines(wholeWallet)
+    console.log(pipelinesResponse)
     const uploads = await getUserUploads() as any
     setPipelines(pipelinesResponse || [])
     if (uploads) {
