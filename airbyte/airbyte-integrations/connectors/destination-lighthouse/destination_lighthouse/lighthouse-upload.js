@@ -13,13 +13,12 @@ const setAccessControl = async (cid, publicKey, privateKey) => {
     const conditions = [
         {
             id: 1,
-            chain: "Optimism",
-            method: "getBlockNumber",
-            standardContractType: "",
-            returnValueTest: {
-                comparator: ">=",
-                value: "13349"
-            },
+            chain: "Hyperspace",
+            method: "balanceOf",
+            standardContractType: "ERC721",
+            contractAddress: "0x9BFD259002B29A831A201b406cF12b7abF20f83B",
+            returnValueTest: { comparator: ">=", value: "1" },
+            parameters: [":userAddress"]
         },
     ];
 
