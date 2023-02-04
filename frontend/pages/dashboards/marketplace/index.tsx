@@ -81,11 +81,11 @@ function Cards() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <Card>
+            <Card style={{backgroundColor:"#0e112b"}}>
               <CardHeader title="Community requests" />
               <Divider />
               <CardContent>
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 345 }} style={{backgroundColor:"#0e112b"}}>
                   <CardHeader
                     avatar={
                       <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

@@ -113,12 +113,8 @@ function Logo() {
           }}
           overlap="circular"
           color="success"
-          badgeContent="1.0"
         >
           <LogoSignWrapper>
-            <LogoSign>
-              <LogoSignInner />
-            </LogoSign>
           </LogoSignWrapper>
         </Badge>
       </LogoWrapper>

@@ -157,7 +157,7 @@ const ETLsTable: FC<ETLsTableProps> = ({ cryptoOrders, etls, userUploads }) => {
 
   return (
     <>
-      <Card>
+      <Card style={{backgroundColor:"#0e112b"}}>
         {selectedBulkActions && (
           <Box flex={1} p={2}>
           </Box>

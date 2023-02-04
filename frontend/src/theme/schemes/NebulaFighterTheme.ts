@@ -11,7 +11,9 @@ const themeColors = {
   error: '#FF1943',
   info: '#33C2FF',
   black: '#CBCCD2',
-  white: '#111633',
+  // white: '#111633',
+  white: '#ecf2ff',
+  // primaryAlt: '#111633',
   primaryAlt: '#111633',
   trueWhite: '#ffffff'
 };

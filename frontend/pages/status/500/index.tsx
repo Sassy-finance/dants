@@ -111,7 +111,7 @@ function Status500() {
               <Container maxWidth="sm">
                 <Box textAlign="center">
                   <TypographySecondary
-                    variant="h4"
+                    variant="h1"
                     fontWeight="normal"
                     sx={{ mb: 4 }}
                   >

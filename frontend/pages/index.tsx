@@ -37,12 +37,11 @@ function Overview() {
   return (
     <OverviewWrapper>
       <Head>
-        <title>Tokyo Free Black NextJS Typescript Admin Dashboard</title>
+        <title>Dants</title>
       </Head>
       <HeaderWrapper>
         <Container maxWidth="lg">
           <Box display="flex" alignItems="center">
-            <Logo />
             <Box
               display="flex"
               alignItems="center"

@@ -169,7 +169,7 @@ const PipelinesTable: FC<PipelinesTableProps> = ({ cryptoOrders, pipelines, comm
 
   return (
     <>
-      <Card>
+      <Card style={{backgroundColor:"#0e112b"}}>
         {selectedBulkActions && (
           <Box flex={1} p={2}>
           </Box>
