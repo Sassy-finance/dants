@@ -6,7 +6,7 @@ This project creates the infrastructure to allow data engineers and data science
 Data engineers can automate the data feeding from the graph, create ETLs in a no-code way and store this data in LightHouse as a data lake, then this data can be transformed by executing compute to data over the data, and used as input to other pipelines where the data analysts can find insights, 
 
 ## Architecture
-![Architecture](/docs/diagram.PNG)
+![Architecture](/docs/diagram.png)
 
 ## Components
 
