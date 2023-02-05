@@ -233,18 +233,18 @@ function Hero() {
             <div style={{
               marginTop: '50px',
               backgroundImage: `url("${Enginners}")`,
-              height: '428px',
-              width: '1303px',
+              height: '368px',
+              width: '1153px',
               backgroundSize: '100%'
             }}>
               <div>
                 <div style={{
-                  height: '380px',
-                  width: '557px',
+                  height: '340px',
+                  width: '547px',
                   float: 'left',
                   backgroundColor: '#fff',
-                  marginTop: '20px',
-                  marginLeft: '20px',
+                  marginTop: '10px',
+                  marginLeft: '10px',
                   borderRadius: '25px',
                 }}>
                   <div>
@@ -277,23 +277,23 @@ function Hero() {
             <div style={{
               marginTop: '50px',
               backgroundImage: `url("${Analyst}")`,
-              height: '428px',
-              width: '1303px',
+              height: '368px',
+              width: '1153px',
               backgroundSize: '100%'
             }}>
               <div>
                 <div style={{
-                  height: '380px',
-                  width: '557px',
+                  height: '340px',
+                  width: '547px',
                   float: 'left',
                   backgroundColor: '#fff',
-                  marginTop: '20px',
-                  marginLeft: '720px',
+                  marginTop: '10px',
+                  marginLeft: '590px',
                   borderRadius: '25px',
                 }}>
                   <div>
                   </div>
-                  <img style={{ height: '80px', marginTop: '32px', marginLeft: '-360px' }} src='/static/images/Eye.png'></img>
+                  <img style={{ height: '80px', marginTop: '15px', marginLeft: '-360px' }} src='/static/images/Eye.png'></img>
                   <span style={{
                     height: '980px',
                     paddingTop: '52px',
@@ -303,7 +303,7 @@ function Hero() {
                     fontWeight: 'bold',
                     paddingLeft: '30px',
                   }}>Data Scientist</span>
-                  <div style={{ textAlign: 'left', marginLeft: '70px', color: '#00204C', marginTop: '20px' }}>
+                  <div style={{ textAlign: 'left', marginLeft: '70px', color: '#00204C', marginTop: '10px' }}>
                     <p style={{ fontWeight: 'bold', fontSize: '18px' }}>
                       Get "ready to use pre-processed blockchain data"</p>
                     <p style={{ marginTop: '-14px' }}>Validated and standardised by community experts</p>
