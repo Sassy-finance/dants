@@ -10,6 +10,8 @@ import { margin } from '@mui/system';
 import Link from 'src/components/Link';
 import Enginners from 'src/images/enginners.png';
 import Analyst from 'src/images/analyst.png';
+import Dants from 'src/images/dants.png';
+
 
 const MuiAvatar = styled(Box)(
   ({ theme }) => `
@@ -248,7 +250,7 @@ function Hero() {
                   <div>
 
                   </div>
-                  <img style={{ height: '80px', marginTop: '32px', marginLeft: '-360px' }} src='/static/images/Hourglass.png'></img>
+                  <img style={{ height: '80px', marginTop: '32px', marginLeft: '-360px' }} src='/static/images/Phone.png'></img>
                   <span style={{
                     height: '980px',
                     paddingTop: '52px',
@@ -290,9 +292,8 @@ function Hero() {
                   borderRadius: '25px',
                 }}>
                   <div>
-
                   </div>
-                  <img style={{ height: '80px', marginTop: '32px', marginLeft: '-360px' }} src='/static/images/Hourglass.png'></img>
+                  <img style={{ height: '80px', marginTop: '32px', marginLeft: '-360px' }} src='/static/images/Eye.png'></img>
                   <span style={{
                     height: '980px',
                     paddingTop: '52px',
@@ -319,7 +320,7 @@ function Hero() {
               </div>
             </div>
           </Grid>
-          <Grid item md={10} lg={10} mx="auto" style={{ textAlign: 'left', marginTop: '160px', marginBottom: '160px' }}>
+          <Grid item md={10} lg={10} mx="auto" style={{ textAlign: 'left', marginTop: '60px', marginBottom: '60px' }}>
             <SectionTitleApp>Great People Make&nbsp;&nbsp;<span style={
               {
                 color: '#FFF',
@@ -337,6 +338,34 @@ function Hero() {
             </Button>
           </Grid>
           <Grid item md={10} lg={10} mx="auto">
+            <div style={{
+              backgroundImage: `url("${Dants}")`,
+              height: '308px',
+              width: '603px',
+              backgroundSize: '100%'
+            }} />
+          </Grid>
+          <Grid item md={10} lg={10} mx="auto" style={{ textAlign: 'left', marginTop: '60px', marginBottom: '60px' }}>
+            <SectionTitleApp>Cutting-Edge <span style={
+              {
+                color: '#FFF',
+                backgroundColor: "#A700FA",
+                borderRadius: '25px',
+
+              }}> &nbsp;Thechnology&nbsp; </span></SectionTitleApp>
+            <div style={
+              {
+                marginTop : '35px',
+
+              }}>
+              <img style={{ height: '90px' }} src='/static/images/filecoin-fil-logo.png'></img>
+              <img style={{ height: '90px', marginLeft: '48px' }} src='/static/images/bacalhau.png'></img>
+              <img style={{ height: '90px', marginLeft: '48px' }} src='/static/images/airbyte.png'></img>
+              <img style={{ height: '90px', marginLeft: '48px' }} src='/static/images/lighthouse.jpeg'></img>
+              <img style={{ height: '90px', marginLeft: '48px' }} src='/static/images/the-graph-grt-logo.png'></img>
+              <img style={{ height: '90px', marginLeft: '48px' }} src='/static/images/spheron.jpeg'></img>
+              <img style={{ height: '90px', marginLeft: '48px' }} src='/static/images/messari.png'></img>
+            </div>
           </Grid>
         </Grid>
       </Grid >
